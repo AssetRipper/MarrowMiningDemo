@@ -1,451 +1,338 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>AssetRipper.Primitives</name>
+        <name>AssetRipper.Mining.PredefinedAssets</name>
     </assembly>
     <members>
-        <member name="T:AssetRipper.Primitives.Extensions.CharacterExtensions">
+        <member name="F:AssetRipper.Mining.PredefinedAssets.AssetType.Internal">
             <summary>
-            Extensions for <see cref="T:System.Char"/>
+            Used by a released game
             </summary>
         </member>
-        <member name="M:AssetRipper.Primitives.Extensions.CharacterExtensions.ToUnityVersionType(System.Char)">
+        <member name="F:AssetRipper.Mining.PredefinedAssets.AssetType.Cached">
             <summary>
-            Parse a character into a Unity Version Type
+            Library asset file. It is editor created file, it doesn't exist in Assets directory
+            It has the format "library/cache/[first Hash byte as hex]/[Hash as hex]"
             </summary>
-            <param name="c">The character</param>
-            <returns></returns>
-            <exception cref="T:System.ArgumentException">No version type for character</exception>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityGuid.ReadUInt32LittleEndian(System.ReadOnlySpan{System.Byte},System.Int32)">
+        <member name="F:AssetRipper.Mining.PredefinedAssets.AssetType.Serialized">
             <summary>
-            Read little-endian <see cref="T:System.UInt32"/> from <see cref="T:System.ReadOnlySpan`1"/>
-            </summary>
-            <param name="byteSpan">A span of bytes.</param>
-            <param name="index">The ith <see cref="T:System.UInt32"/> in <paramref name="byteSpan"/>.</param>
-            <returns></returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityGuid.ConvertSystemOrUnityBytes(System.ReadOnlySpan{System.Byte},System.Span{System.Byte})">
-            <summary>
-            Converts system bytes to unity bytes, or the reverse
-            </summary>
-            <param name="input">A 16 byte input span</param>
-            <param name="output">A 16 byte output span</param>
-            <returns>The same span: <paramref name="input"/></returns>
-            <exception cref="T:System.ArgumentException">Span doesn't have 16 elements</exception>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityGuid.Md5Hash(System.String)">
-            <summary>
-            Make a guid by MD5 hashing a string
+            Serialized asset file. It contains all parameters inside itself.
             </summary>
             <remarks>
-            The returned guid is most likely not "valid" by official standards. However, Unity doesn't seem to care.
+            All yaml files use this type.
             </remarks>
-            <param name="str">Input string. Can be any length</param>
-            <returns>A stable guid corresponding to the input string</returns>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityGuid.Md5Hash(System.ReadOnlySpan{System.Byte})">
+        <member name="F:AssetRipper.Mining.PredefinedAssets.AssetType.Meta">
             <summary>
-            Make a guid by MD5 hashing some input data
+            Binary asset file. It contains all parameters inside meta file.
             </summary>
             <remarks>
-            The returned guid is most likely not "valid" by official standards. However, Unity doesn't seem to care.
+            Any "universal" format uses this type. For example, png, jpg, tga, wav, ogg, fbx, cs, dll, shader, etc.
             </remarks>
-            <param name="input">Input data. Can be any length</param>
-            <returns>A stable guid corresponding to the <paramref name="input"/>.</returns>
         </member>
-        <member name="P:AssetRipper.Primitives.UnityGuid.MissingReference">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.AudioClip.Channels">
             <summary>
-            0x0000000DEADBEEF15DEADF00D0000000
+            The number of channels in the audio clip.<br />
+            5.0.0 to Max
             </summary>
         </member>
-        <member name="T:AssetRipper.Primitives.UnityVersion">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.AudioClip.Frequency">
             <summary>
-            A value type for holding Unity versions
+            The sample frequency of the clip in Hertz.<br />
+            5.0.0 to Max
             </summary>
         </member>
-        <member name="P:AssetRipper.Primitives.UnityVersion.Major">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.AudioClip.Length">
             <summary>
-            The first number in a Unity version string
+            The length of the audio clip in seconds.<br />
+            5.0.0 to Max
             </summary>
         </member>
-        <member name="P:AssetRipper.Primitives.UnityVersion.Minor">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.Component.GameObject">
             <summary>
-            The second number in a Unity version string
+            The name of the <see cref="P:AssetRipper.Mining.PredefinedAssets.Component.GameObject"/> this component is attached to.
             </summary>
         </member>
-        <member name="P:AssetRipper.Primitives.UnityVersion.Build">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.GameObject.Components">
             <summary>
-            The third number in a Unity version string
+            List of the <see cref="P:AssetRipper.Mining.PredefinedAssets.Object.TypeID"/>s for the <see cref="T:AssetRipper.Mining.PredefinedAssets.Component"/>s attached to this <see cref="T:AssetRipper.Mining.PredefinedAssets.GameObject"/>.
             </summary>
         </member>
-        <member name="P:AssetRipper.Primitives.UnityVersion.Type">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Boolean">
             <summary>
-            The letter in a Unity version string
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="P:AssetRipper.Primitives.UnityVersion.TypeNumber">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Single">
             <summary>
-            The last number in a Unity version string
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="P:AssetRipper.Primitives.UnityVersion.MinVersion">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.AssetDictionary">
             <summary>
-            The minimum value this type can have
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="P:AssetRipper.Primitives.UnityVersion.MaxVersion">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.AssetType">
             <summary>
-            The maximum value this type can have
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.#ctor(System.UInt16)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.AudioClip">
             <summary>
-            Construct a new Unity version
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.#ctor(System.UInt16,System.UInt16)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Cubemap">
             <summary>
-            Construct a new Unity version
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.#ctor(System.UInt16,System.UInt16,System.UInt16)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.EngineResourceData">
             <summary>
-            Construct a new Unity version
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.#ctor(System.UInt16,System.UInt16,System.UInt16,AssetRipper.Primitives.UnityVersionType)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.GameObject">
             <summary>
-            Construct a new Unity version
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.#ctor(System.UInt16,System.UInt16,System.UInt16,AssetRipper.Primitives.UnityVersionType,System.Byte)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.GenericBehaviour">
             <summary>
-            Construct a new Unity version
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.GetBits">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.GenericComponent">
             <summary>
-            Converts this to its binary representation
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
-            <returns>An unsigned long integer having the same bits as this</returns>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.FromBits(System.UInt64)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.GenericNamedObject">
             <summary>
-            Converts a binary representation into its respective version
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
-            <param name="bits">An unsigned long integer having the relevant bits</param>
-            <returns>A new Unity version with the cooresponding bits</returns>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.CompareTo(System.Object)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Material">
             <summary>
-            Compare to another object
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
-            <param name="obj">Another object</param>
-            <returns>
-            1 if this is larger or the other is not a Unity version<br/>
-            -1 if this is smaller<br/>
-            0 if equal
-            </returns>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.CompareTo(AssetRipper.Primitives.UnityVersion)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Mesh">
             <summary>
-            Compare two Unity versions
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
-            <param name="other">Another Unity version</param>
-            <returns>
-            1 if this is larger<br/>
-            -1 if this is smaller<br/>
-            0 if equal
-            </returns>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.Equals(System.Object)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.MonoBehaviour">
             <summary>
-            Check equality with another object
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
-            <param name="obj">Another object</param>
-            <returns>True if they're equal; false otherwise</returns>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.Equals(AssetRipper.Primitives.UnityVersion)">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.MonoScript">
             <summary>
-            Check equality with another Unity version
+            Defines the source generated JSON serialization contract metadata for a given type.
             </summary>
-            <param name="other">Another Unity version</param>
-            <returns>True if they're equal; false otherwise</returns>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.GetHashCode">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.PPtr">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Shader">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Sprite">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.TextAsset">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Texture2D">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.UnityPackageData">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.UnityGuid">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.DictionaryInt64Object">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.DictionaryStringUnityGuid">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.KeyValuePairObjectPPtr">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.UInt128">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Int32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Int32Array">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Int64">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.String">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.StringArray">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.UInt32">
+            <summary>
+            Defines the source generated JSON serialization contract metadata for a given type.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.Default">
+            <summary>
+            The default <see cref="T:System.Text.Json.Serialization.JsonSerializerContext"/> associated with a default <see cref="T:System.Text.Json.JsonSerializerOptions"/> instance.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.GeneratedSerializerOptions">
+            <summary>
+            The source-generated options associated with this context.
+            </summary>
+        </member>
+        <member name="M:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.#ctor">
             <inheritdoc/>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.Max(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
-            <summary>
-            A maximizing function for Unity versions
-            </summary>
-            <param name="left">A Unity version</param>
-            <param name="right">A Unity version</param>
-            <returns>The larger Unity version</returns>
+        <member name="M:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.#ctor(System.Text.Json.JsonSerializerOptions)">
+            <inheritdoc/>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.Min(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
-            <summary>
-            A minimizing function for Unity versions
-            </summary>
-            <param name="left">A Unity version</param>
-            <param name="right">A Unity version</param>
-            <returns>The smaller Unity version</returns>
+        <member name="M:AssetRipper.Mining.PredefinedAssets.InternalSerializerContext.GetTypeInfo(System.Type)">
+            <inheritdoc/>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.Distance(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
+        <member name="T:AssetRipper.Mining.PredefinedAssets.PPtr">
             <summary>
-            A distance function for measuring version proximity
+            A data structure representing a reference to an asset.
+            </summary>
+            <param name="FileID">The local identifier within the file.</param>
+            <param name="Guid">The global identifier for the file.</param>
+            <param name="Type">The type of file. </param>
+        </member>
+        <member name="M:AssetRipper.Mining.PredefinedAssets.PPtr.#ctor(System.Int64,AssetRipper.Primitives.UnityGuid,AssetRipper.Mining.PredefinedAssets.AssetType)">
+            <summary>
+            A data structure representing a reference to an asset.
+            </summary>
+            <param name="FileID">The local identifier within the file.</param>
+            <param name="Guid">The global identifier for the file.</param>
+            <param name="Type">The type of file. </param>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.PPtr.FileID">
+            <summary>The local identifier within the file.</summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.PPtr.Guid">
+            <summary>The global identifier for the file.</summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.PPtr.Type">
+            <summary>The type of file. </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.Shader.PropertyNames">
+            <summary>
+            5.5.0 to Max
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.TextAsset.Length">
+            <summary>
+            The length the text in bytes.
+            </summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.TextAsset.Hash">
+            <summary>
+            An MD5 hash of the text contents.
+            </summary>
+        </member>
+        <member name="T:AssetRipper.Mining.PredefinedAssets.UnityPackageData">
+            <summary>
+            A data structure representing a Unity package.
             </summary>
             <remarks>
-            The returned value is ordinal and should not be saved anywhere.
-            It's only for runtime comparisons, such as finding the closest version in a list.
+            File extensions are not included in any names.
             </remarks>
-            <param name="left">A Unity version</param>
-            <param name="right">A Unity version</param>
-            <returns>
-            An ordinal number representing the distance between 2 versions. 
-            A value of zero means they're equal.
-            </returns>
+            <param name="Name">The name of this Unity package.</param>
+            <param name="Version">The version or git url of this Unity package. Only applicable if <paramref name="UsedInPackageJson"/> is true.</param>
+            <param name="UsedInPackageJson">If true, this Unity package should be referenced in the project's package json file.</param>
+            <param name="Assemblies">A dictionary of compiled dll assemblies in the package.</param>
+            <param name="Assets">A dictionary of assets in the package.</param>
         </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.GetClosestVersion(AssetRipper.Primitives.UnityVersion[])">
+        <member name="M:AssetRipper.Mining.PredefinedAssets.UnityPackageData.#ctor(System.String,System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,AssetRipper.Primitives.UnityGuid},AssetRipper.Mining.PredefinedAssets.AssetDictionary)">
             <summary>
-            Get the closest Unity version in an array of versions using <see cref="M:AssetRipper.Primitives.UnityVersion.Distance(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)"/>
-            </summary>
-            <param name="versions">The Unity version array</param>
-            <returns>The closest Unity version</returns>
-            <exception cref="T:System.ArgumentNullException">The array is null</exception>
-            <exception cref="T:System.ArgumentException">The array is empty</exception>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ChangeMajor(System.UInt16)">
-            <summary>
-            Change <see cref="P:AssetRipper.Primitives.UnityVersion.Major"/>.
-            </summary>
-            <param name="value">The new value</param>
-            <returns>A new <see cref="T:AssetRipper.Primitives.UnityVersion"/> with the changed value.</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ChangeMinor(System.UInt16)">
-            <summary>
-            Change <see cref="P:AssetRipper.Primitives.UnityVersion.Minor"/>.
-            </summary>
-            <param name="value">The new value</param>
-            <returns>A new <see cref="T:AssetRipper.Primitives.UnityVersion"/> with the changed value.</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ChangeBuild(System.UInt16)">
-            <summary>
-            Change <see cref="P:AssetRipper.Primitives.UnityVersion.Build"/>.
-            </summary>
-            <param name="value">The new value</param>
-            <returns>A new <see cref="T:AssetRipper.Primitives.UnityVersion"/> with the changed value.</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ChangeType(AssetRipper.Primitives.UnityVersionType)">
-            <summary>
-            Change <see cref="P:AssetRipper.Primitives.UnityVersion.Type"/>.
-            </summary>
-            <param name="value">The new value</param>
-            <returns>A new <see cref="T:AssetRipper.Primitives.UnityVersion"/> with the changed value.</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ChangeTypeNumber(System.Byte)">
-            <summary>
-            Change <see cref="P:AssetRipper.Primitives.UnityVersion.TypeNumber"/>.
-            </summary>
-            <param name="value">The new value</param>
-            <returns>A new <see cref="T:AssetRipper.Primitives.UnityVersion"/> with the changed value.</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.op_Equality(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
-            <summary>
-            Equality operator
-            </summary>
-            <param name="left">The left Unity version</param>
-            <param name="right">The right Unity version</param>
-            <returns></returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.op_Inequality(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
-            <summary>
-            Inequality operator
-            </summary>
-            <param name="left">The left Unity version</param>
-            <param name="right">The right Unity version</param>
-            <returns></returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.op_GreaterThan(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
-            <summary>
-            Greater than
-            </summary>
-            <param name="left">The left Unity version</param>
-            <param name="right">The right Unity version</param>
-            <returns></returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.op_GreaterThanOrEqual(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
-            <summary>
-            Greater than or equal to
-            </summary>
-            <param name="left">The left Unity version</param>
-            <param name="right">The right Unity version</param>
-            <returns></returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.op_LessThan(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
-            <summary>
-            Less than
-            </summary>
-            <param name="left">The left Unity version</param>
-            <param name="right">The right Unity version</param>
-            <returns></returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.op_LessThanOrEqual(AssetRipper.Primitives.UnityVersion,AssetRipper.Primitives.UnityVersion)">
-            <summary>
-            Less than or equal to
-            </summary>
-            <param name="left">The left Unity version</param>
-            <param name="right">The right Unity version</param>
-            <returns></returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ToString">
-            <summary>
-            Serialize the version as a string using <see cref="F:AssetRipper.Primitives.UnityVersionFormatFlags.Default"/>.
-            </summary>
-            <returns>A new string like 2019.4.3f1</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ToString(AssetRipper.Primitives.UnityVersionFormatFlags)">
-            <summary>
-            Serialize the version as a string
-            </summary>
-            <param name="flags">The flags to control how the version is formatted</param>
-            <returns>A new string containing the formatted version.</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ToString(AssetRipper.Primitives.UnityVersionFormatFlags,System.String)">
-            <summary>
-            Serialize the version as a string
-            </summary>
-            <param name="flags">The flags to control how the version is formatted</param>
-            <param name="customEngineString">The custom engine string to be appended</param>
-            <returns>A new string containing the formatted version.</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.ToStringWithoutType">
-            <summary>
-            Serialize the version as a string using only <see cref="P:AssetRipper.Primitives.UnityVersion.Major"/>, <see cref="P:AssetRipper.Primitives.UnityVersion.Minor"/>, and <see cref="P:AssetRipper.Primitives.UnityVersion.Build"/>.
-            </summary>
-            <returns>A new string like 2019.4.3</returns>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.Parse(System.String)">
-            <summary>
-            Parse a normal Unity version string
-            </summary>
-            <param name="s">A string to parse</param>
-            <returns>The parsed Unity version</returns>
-            <exception cref="T:System.ArgumentException">If the string is in an invalid format</exception>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.Parse(System.String,System.String@)">
-            <summary>
-            Parse a normal Unity version string
-            </summary>
-            <param name="s">A string to parse</param>
-            <param name="customEngine">Not null if this version was generated by a custom Unity Engine.</param>
-            <returns>The parsed Unity version</returns>
-            <exception cref="T:System.ArgumentException">If the string is in an invalid format</exception>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersion.TryParse(System.String,AssetRipper.Primitives.UnityVersion@,System.String@)">
-            <summary>
-            Try to parse a normal Unity version string
-            </summary>
-            <param name="s">A string to parse</param>
-            <param name="version">The parsed Unity version</param>
-            <param name="customEngine">Not null if this version was generated by a custom Unity Engine.</param>
-            <returns>True if parsing was successful</returns>
-        </member>
-        <member name="T:AssetRipper.Primitives.UnityVersionFormatFlags">
-            <summary>
-            Flags used when formatting a <see cref="T:AssetRipper.Primitives.UnityVersion"/>
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionFormatFlags.Default">
-            <summary>
-            The default flags when formatting.
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionFormatFlags.ExcludeType">
-            <summary>
-            Exclude <see cref="P:AssetRipper.Primitives.UnityVersion.Type"/>, <see cref="P:AssetRipper.Primitives.UnityVersion.TypeNumber"/>, and the custom engine number when formatting.
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionFormatFlags.UseShortChineseFormat">
-            <summary>
-            Format chinese versions as 2019.4.3c1 rather than 2019.4.3f1c1
+            A data structure representing a Unity package.
             </summary>
             <remarks>
-            An example of the long version can be found in 'unity editor resources' and 'unity_builtin_extra' for the <see href="https://unity.cn/release-notes/full/2019/2019.4.40f1">2019.4.40f1c1</see> version.<br/>
-            An example of the short version can be found in <see href="https://github.com/AssetRipper/AssetRipper/issues/841"/>.
+            File extensions are not included in any names.
             </remarks>
+            <param name="Name">The name of this Unity package.</param>
+            <param name="Version">The version or git url of this Unity package. Only applicable if <paramref name="UsedInPackageJson"/> is true.</param>
+            <param name="UsedInPackageJson">If true, this Unity package should be referenced in the project's package json file.</param>
+            <param name="Assemblies">A dictionary of compiled dll assemblies in the package.</param>
+            <param name="Assets">A dictionary of assets in the package.</param>
         </member>
-        <member name="T:AssetRipper.Primitives.UnityVersionType">
+        <member name="P:AssetRipper.Mining.PredefinedAssets.UnityPackageData.Name">
+            <summary>The name of this Unity package.</summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.UnityPackageData.Version">
+            <summary>The version or git url of this Unity package. Only applicable if <paramref name="UsedInPackageJson"/> is true.</summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.UnityPackageData.UsedInPackageJson">
+            <summary>If true, this Unity package should be referenced in the project's package json file.</summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.UnityPackageData.Assemblies">
+            <summary>A dictionary of compiled dll assemblies in the package.</summary>
+        </member>
+        <member name="P:AssetRipper.Mining.PredefinedAssets.UnityPackageData.Assets">
+            <summary>A dictionary of assets in the package.</summary>
+        </member>
+        <member name="T:System.UInt128">
             <summary>
-            An enumeration representing the letter in a Unity Version string
+            A limited polyfill for the UInt128 struct.
             </summary>
         </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionType.Alpha">
-            <summary>
-            a
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionType.Beta">
-            <summary>
-            b
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionType.China">
-            <summary>
-            c
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionType.Final">
-            <summary>
-            f
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionType.Patch">
-            <summary>
-            p
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionType.Experimental">
-            <summary>
-            x
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionType.MinValue">
-            <summary>
-            The minimum valid value for this enumeration
-            </summary>
-        </member>
-        <member name="F:AssetRipper.Primitives.UnityVersionType.MaxValue">
-            <summary>
-            The maximum valid value for this enumeration
-            </summary>
-        </member>
-        <member name="T:AssetRipper.Primitives.UnityVersionTypeExtentions">
-            <summary>
-            Extension methods for <see cref="T:AssetRipper.Primitives.UnityVersionType"/>
-            </summary>
-        </member>
-        <member name="M:AssetRipper.Primitives.UnityVersionTypeExtentions.ToCharacter(AssetRipper.Primitives.UnityVersionType)">
-            <summary>
-            Convert to the relevant character
-            </summary>
-            <param name="type">A Unity version type</param>
-            <returns>The character this value represents</returns>
-            <exception cref="T:System.ArgumentOutOfRangeException">The type is not a valid value</exception>
-        </member>
-        <member name="T:AssetRipper.Primitives.Utf8String">
-            <summary>
-            An immutable, thread-safe, representation of UTF8 text data.
-            </summary>
-            <remarks>
-            Conversions to and from <see cref="T:System.String"/> are handled by <see cref="P:System.Text.Encoding.UTF8"/>.
-            </remarks>
-        </member>
-        <member name="M:AssetRipper.Primitives.Utf8String.#ctor">
-            <summary>
-            The empty string. A shared instance is available in <see cref="P:AssetRipper.Primitives.Utf8String.Empty"/>.
-            </summary>
+        <member name="M:System.UInt128.#ctor(System.UInt64,System.UInt64)">
+            <summary>Initializes a new instance of the <see cref="T:System.UInt128" /> struct.</summary>
+            <param name="upper">The upper 64-bits of the 128-bit value.</param>
+            <param name="lower">The lower 64-bits of the 128-bit value.</param>
         </member>
         <member name="T:System.Diagnostics.CodeAnalysis.AllowNullAttribute">
             <summary>

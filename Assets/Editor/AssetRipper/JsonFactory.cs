@@ -1,9 +1,9 @@
 using AssetRipper.Mining.PredefinedAssets;
 using AssetRipper.Primitives;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
+using MonoScript = AssetRipper.Mining.PredefinedAssets.MonoScript;
 using PackageInfo = UnityEditor.PackageManager.PackageInfo;
 
 namespace AssetRipper
@@ -68,7 +68,7 @@ namespace AssetRipper
                             else
                             {
                                 string name = type.Assembly.GetName().Name;
-                                packageData.Scripts.GetOrCreate(name).Add(type.FullName, GetGuid(path));
+                                packageData.Assets.Add(MonoScript.FromType(type), GetGuid(path));
                             }
                         }
                         else if (AssetDatabase.TryGetGUIDAndLocalFileIdentifier(asset, out string guidString, out long localId))
@@ -76,45 +76,57 @@ namespace AssetRipper
                             UnityGuid guid = UnityGuid.Parse(guidString);
                             AssetType type = AssetDatabase.IsNativeAsset(asset) ? AssetType.Serialized : AssetType.Meta;
                             PPtr pptr = new PPtr(localId, guid, type);
+                            Object objectToAdd;
                             if (asset is UnityEngine.Shader shader)
                             {
-                                packageData.Assets.Add(new Shader(shader.name, shader.GetPropertyNames()), pptr);
+                                objectToAdd = new Shader(shader.name, shader.GetPropertyNames());
                             }
                             else if (asset is UnityEngine.TextAsset textAsset)
                             {
-                                packageData.Assets.Add(new TextAsset(textAsset.name, textAsset.bytes), pptr);
+                                objectToAdd = new TextAsset(textAsset.name, textAsset.bytes);
                             }
                             else if (asset is UnityEngine.Mesh mesh)
                             {
-                                packageData.Assets.Add(new Mesh(mesh.name, mesh.vertexCount, mesh.subMeshCount), pptr);
+                                objectToAdd = new Mesh(mesh.name, mesh.vertexCount, mesh.subMeshCount);
                             }
                             else if (asset is UnityEngine.Cubemap cubemap)
                             {
-                                packageData.Assets.Add(new Cubemap(cubemap.name, cubemap.width, cubemap.height), pptr);
+                                objectToAdd = new Cubemap(cubemap.name, cubemap.width, cubemap.height);
                             }
-                            else if (asset is UnityEngine.Texture2D texture2D)
+                            else if (asset is UnityEngine.Texture2D texture2D && texture2D.name != "Font Texture")
                             {
-                                packageData.Assets.Add(new Texture2D(texture2D.name, texture2D.width, texture2D.height), pptr);
+                                objectToAdd = new Texture2D(texture2D.name, texture2D.width, texture2D.height);
                             }
                             else if (asset is UnityEngine.AudioClip audioClip)
                             {
-                                packageData.Assets.Add(new AudioClip(audioClip.name, audioClip.channels, audioClip.frequency, audioClip.length), pptr);
+                                objectToAdd = new AudioClip(audioClip.name, audioClip.channels, audioClip.frequency, audioClip.length);
                             }
                             else if (asset is UnityEngine.Font font)
                             {
-                                packageData.Assets.Add(GenericNamedObject.CreateFont(font.name), pptr);
+                                objectToAdd = GenericNamedObject.CreateFont(font.name);
                             }
                             else if (asset is UnityEngine.ComputeShader computeShader)
                             {
-                                packageData.Assets.Add(GenericNamedObject.CreateComputeShader(computeShader.name), pptr);
+                                objectToAdd = GenericNamedObject.CreateComputeShader(computeShader.name);
                             }
-                            else if (asset is UnityEngine.Material material)
+                            else if (asset is UnityEngine.Material material && material.name != "Font Material")
                             {
-                                packageData.Assets.Add(new Material(material.name, material.shader != null ? material.shader.name : null), pptr);
+                                objectToAdd = new Material(material.name, material.shader != null ? material.shader.name : null);
                             }
                             else if (asset is UnityEngine.Sprite sprite)
                             {
-                                packageData.Assets.Add(new Sprite(sprite.name, sprite.texture != null ? sprite.texture.name : null), pptr);
+                                objectToAdd = new Sprite(sprite.name, sprite.texture != null ? sprite.texture.name : null);
+                            }
+                            else
+                            {
+                                objectToAdd = null;
+                            }
+                            if (objectToAdd != null)
+                            {
+                                if (!packageData.Assets.TryAdd(objectToAdd, pptr))
+                                {
+                                    UnityEngine.Debug.LogWarning($"Object could not be added:\nObject: {objectToAdd}\nPPtr: {pptr}");
+                                }
                             }
                         }
                         else
@@ -175,25 +187,6 @@ namespace AssetRipper
             }
             packageData = default;
             return false;
-        }
-
-        private static TValue GetOrCreate<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key) where TValue : new()
-        {
-            if (dictionary.TryGetValue(key, out TValue value))
-            {
-                return value;
-            }
-            else
-            {
-                value = new TValue();
-                dictionary.Add(key, value);
-                return value;
-            }
-        }
-
-        private static void Add<TKey, TValue>(this List<KeyValuePair<TKey, TValue>> list, TKey key, TValue value)
-        {
-            list.Add(new KeyValuePair<TKey, TValue>(key, value));
         }
     }
 }
